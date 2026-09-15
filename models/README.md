@@ -1,14 +1,37 @@
 # Model weights
 
-Trained checkpoints belong in this folder. They are around 85 MB each, which is over GitHub's 50 MB warning threshold, so they cannot be uploaded through the GitHub web interface (that one caps at 25 MB per file). Use one of the two options below instead.
+The CheXNet starting checkpoint now lives in this folder as `m-30012020-104001.pth` (84 MB), tracked with Git LFS. Checkpoints produced by the Active Learning loop are not committed; follow the instructions below if you want to publish one.
 
-The notebooks expect the CheXNet starting checkpoint at `m-30012020-104001.pth`, loaded as `checkpoint['state_dict']`. Checkpoints produced by the Active Learning loop are saved as `best_model<percentage>_strategy_<strategy>_F1_<score>.pth` and contain a bare `state_dict`.
+The two kinds of checkpoint are not loaded the same way. The starting CheXNet weights are read as `checkpoint['state_dict']`, while the ones saved by the Active Learning loop are named `best_model<percentage>_strategy_<strategy>_F1_<score>.pth` and contain a bare `state_dict`.
 
-## Option A — push from Colab with Git LFS
+## Getting the weights
 
-The checkpoint already lives in Google Drive, so it can go straight from Colab to the repository without downloading it to your machine. `.gitattributes` already routes `*.pth` and `*.pth.tar` through LFS.
+`git clone` only brings down the LFS pointer files, not the weights themselves, so a fresh clone leaves a three-line text file where the checkpoint should be. To fetch the real content:
 
-You need a GitHub [personal access token](https://github.com/settings/tokens) with `repo` scope. Never paste it into a cell — read it with `getpass` so it is not saved inside the notebook.
+```bash
+git lfs install
+git lfs pull
+```
+
+From Colab, where the repository is usually cloned fresh on every session, `git-lfs` has to be installed first:
+
+```python
+!apt-get -qq install git-lfs
+!git clone https://github.com/xabat111/ActiveLearningCardiomegaly.git
+%cd ActiveLearningCardiomegaly
+!git lfs install
+!git lfs pull
+```
+
+Then point `MODEL_PATH` at `models/m-30012020-104001.pth`.
+
+If more checkpoints get added later and you only want this one, `git lfs pull --include models/m-30012020-104001.pth` skips the rest.
+
+## Adding another checkpoint
+
+Checkpoints are around 85 MB, above GitHub's 50 MB warning threshold and well above the 25 MB cap of the web interface, so they have to go through Git LFS from the command line. `.gitattributes` already routes `*.pth` and `*.pth.tar` through LFS, so there is nothing else to configure.
+
+Because the checkpoints already live in Google Drive, they can go straight from Colab to the repository without passing through your machine. You need a GitHub [personal access token](https://github.com/settings/tokens) with `repo` scope. Never paste it into a cell — read it with `getpass` so it is not saved inside the notebook.
 
 ```python
 from google.colab import drive
@@ -22,30 +45,30 @@ TOKEN = getpass('GitHub token: ')
 USER  = 'xabat111'
 REPO  = 'ActiveLearningCardiomegaly'
 SRC   = '/content/drive/MyDrive/MachineLearning/Part3/CHEXNET/archive (Unzipped Files)/m-30012020-104001.pth'
+DST   = 'models/' + os.path.basename(SRC)
 
 os.chdir('/content')
 !git clone https://{TOKEN}@github.com/{USER}/{REPO}.git
 os.chdir(f'/content/{REPO}')
 
 !git lfs install
-os.makedirs('models', exist_ok=True)
-shutil.copy(SRC, 'models/m-30012020-104001.pth')
+shutil.copy(SRC, DST)
 
 !git config user.email "you@example.com"
 !git config user.name "Your Name"
-!git add models/m-30012020-104001.pth
-!git commit -m "Add CheXNet checkpoint"
+!git add {DST}
+!git commit -m "Add checkpoint"
 !git lfs ls-files          # should list the file, i.e. it is a pointer and not a raw blob
 !git push
 ```
 
 Bear in mind that LFS storage and bandwidth count against the account quota (1 GB free on GitHub), which is roughly eleven checkpoints of this size.
 
-## Option B — attach it to a GitHub Release
+## Alternative — attach weights to a GitHub Release
 
-Release assets accept files up to 2 GB, do not consume the LFS quota, and can be uploaded by drag and drop from a browser: go to **Releases → Draft a new release**, create a tag such as `weights-v1`, and drop the `.pth` file in the "Attach binaries" area.
+Once the LFS quota gets tight, publish further checkpoints as release assets instead. They accept files up to 2 GB, do not consume the LFS quota, and can be uploaded by drag and drop from a browser: go to **Releases → Draft a new release**, create a tag such as `weights-v1`, and drop the `.pth` file in the "Attach binaries" area.
 
-Downloading it afterwards from a notebook needs no token if the repository is public:
+Downloading one afterwards from a notebook needs no token while the repository is public:
 
 ```python
 !wget -O m-30012020-104001.pth \
@@ -53,7 +76,3 @@ Downloading it afterwards from a notebook needs no token if the repository is pu
 ```
 
 Then point `MODEL_PATH` at the downloaded file.
-
-## Cloning a repository that has LFS files
-
-`git clone` only fetches the pointer files; run `git lfs install` and `git lfs pull` to download the actual weights.
