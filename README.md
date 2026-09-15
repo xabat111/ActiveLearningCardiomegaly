@@ -37,4 +37,4 @@ git lfs install
 git lfs pull
 ```
 
-See `models/README.md` for how to add a new checkpoint.
+Since the weights are too large for the GitHub web uploader, `models/README.md` describes the two ways to publish them: pushing straight from Colab with Git LFS (the checkpoint is already in Drive), or attaching them to a GitHub Release.
