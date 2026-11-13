@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="350" viewBox="0 0 900 350">
+  <defs><clipPath id="card"><rect x="0.5" y="0.5" width="899" height="349" rx="12"/></clipPath></defs>
+  <g clip-path="url(#card)">
+    <rect width="900" height="350" fill="#ffffff"/>
+    <rect width="900" height="50" fill="#0f2a44"/>
+    <text x="28" y="30.0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" letter-spacing="1.2" fill="#ffffff">SETUP</text>
+    <text x="427" y="30.0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" letter-spacing="1.2" fill="#ffffff">TEST RESULT</text>
+    <rect x="0" y="50" width="900" height="60" fill="#ffffff"/>
+    <rect x="0" y="50" width="6" height="60" fill="#4285f4"/>
+    <text x="28" y="77" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f2a44">Pretrained CheXNet, no tuning</text>
+    <text x="28" y="96" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12.5" fill="#5b6b7f">14-class model run on all 5,606 images</text>
+    <text x="427" y="77" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f2a44">Cardiomegaly AUROC 0.948</text>
+    <text x="427" y="96" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12.5" fill="#5b6b7f">Mean AUROC over the 14 pathologies: 0.566</text>
+    <rect x="0" y="110" width="900" height="60" fill="#f4f7fb"/>
+    <rect x="0" y="110" width="6" height="60" fill="#34a853"/>
+    <text x="28" y="137" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f2a44">Baseline · 100 % of labels</text>
+    <text x="28" y="156" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12.5" fill="#5b6b7f">Fine-tuned, 70/20/10 split, 10 epochs</text>
+    <text x="427" y="137" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f2a44">F1 34.92 %</text>
+    <text x="427" y="156" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12.5" fill="#5b6b7f">Accuracy 92.69 % · Recall 78.57 %</text>
+    <line x1="6" y1="110" x2="900" y2="110" stroke="#e6ecf3" stroke-width="1"/>
+    <rect x="0" y="170" width="900" height="60" fill="#ffffff"/>
+    <rect x="0" y="170" width="6" height="60" fill="#fbbc04"/>
+    <text x="28" y="197" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f2a44">Entropy · 20 % labelled</text>
+    <text x="28" y="216" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12.5" fill="#5b6b7f">Best F1 with the smallest labelled pool</text>
+    <text x="427" y="197" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f2a44">F1 36.5 %</text>
+    <text x="427" y="216" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12.5" fill="#5b6b7f">Accuracy 94.5 % · Recall 64 %</text>
+    <line x1="6" y1="170" x2="900" y2="170" stroke="#e6ecf3" stroke-width="1"/>
+    <rect x="0" y="230" width="900" height="60" fill="#f4f7fb"/>
+    <rect x="0" y="230" width="6" height="60" fill="#ea4335"/>
+    <text x="28" y="257" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f2a44">MC Dropout p=0.3 · 60 % labelled</text>
+    <text x="28" y="276" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12.5" fill="#5b6b7f">Best F1 overall after the last round</text>
+    <text x="427" y="257" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f2a44">F1 41.0 %</text>
+    <text x="427" y="276" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12.5" fill="#5b6b7f">Accuracy 93.1 % · Recall 72.2 %</text>
+    <line x1="6" y1="230" x2="900" y2="230" stroke="#e6ecf3" stroke-width="1"/>
+    <rect x="0" y="290" width="900" height="60" fill="#ffffff"/>
+    <rect x="0" y="290" width="6" height="60" fill="#8e44ad"/>
+    <text x="28" y="317" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f2a44">MedAL · 60 % labelled</text>
+    <text x="28" y="336" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12.5" fill="#5b6b7f">Entropy + feature-space diversity</text>
+    <text x="427" y="317" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0f2a44">F1 40.8 %</text>
+    <text x="427" y="336" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12.5" fill="#5b6b7f">Accuracy 94.5 % · Recall 71.3 %</text>
+    <line x1="6" y1="290" x2="900" y2="290" stroke="#e6ecf3" stroke-width="1"/>
+    <line x1="405" y1="50" x2="405" y2="350" stroke="#e6ecf3" stroke-width="1"/>
+  </g>
+  <rect x="0.5" y="0.5" width="899" height="349" rx="12" fill="none" stroke="#d8e0ea" stroke-width="1"/>
+</svg>
